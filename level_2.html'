@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Prépa42 - Level2 Mobile</title>
+<style>
+  body { font-family: monospace; background: #111; color: #eee; padding: 10px; }
+  h1 { text-align: center; color: #4CAF50; }
+  textarea { width: 100%; height: 200px; background: #222; color: #0f0; border: 1px solid #444; }
+  button { background: #4CAF50; color: white; padding: 10px; border: none; margin-top: 10px; width: 100%; font-size: 16px; }
+  pre { background: #222; padding: 10px; white-space: pre-wrap; border: 1px solid #333; margin-top: 10px; }
+  .ok { color: #4CAF50; }
+  .fail { color: #f44336; }
+</style>
+</head>
+<body>
+<h1>Prépa42 - Level2 Mobile</h1>
+<p>Écris ton code ci-dessous 👇 et lance les tests.</p>
+
+<textarea id="code">function somme(a, b) {
+  // TODO : renvoie la somme de a et b
+  return a + b;
+}</textarea>
+<button onclick="runTests()">Lancer les tests</button>
+
+<pre id="output"></pre>
+<p id="progress"></p>
+
+<script>
+// Liste des tests
+const tests = [
+  {desc: "somme(2, 3) === 5", test: () => somme(2, 3) === 5},
+  {desc: "somme(0, 0) === 0", test: () => somme(0, 0) === 0},
+  {desc: "somme(-1, 1) === 0", test: () => somme(-1, 1) === 0},
+];
+
+function runTests(){
+  let code = document.getElementById('code').value;
+  let output = "";
+  try {
+    eval(code);
+    let passed = 0;
+    for (let t of tests){
+      if (t.test()){
+        output += "✅ " + t.desc + "\n";
+        passed++;
+      } else {
+        output += "❌ " + t.desc + "\n";
+      }
+    }
+    let percent = Math.round((passed / tests.length) * 100);
+    output += `\nProgression : ${percent}%`;
+    document.getElementById('output').innerText = output;
+    localStorage.setItem("level2_progress", percent);
+    document.getElementById('progress').innerText = "📊 Progression sauvegardée : " + percent + "%";
+  } catch(e){
+    document.getElementById('output').innerText = "Erreur : " + e;
+  }
+}
+
+window.onload = () => {
+  let saved = localStorage.getItem("level2_progress");
+  if (saved){
+    document.getElementById('progress').innerText = "📊 Progression précédente : " + saved + "%";
+  }
+};
+</script>
+
+</body>
+</html>

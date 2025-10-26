@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Level1 - Prépa42</title>
+</head>
+<body>
+<h1>Level1 - Prépa42</h1>
+<p>Éditeur Python interactif pour tes premiers exercices.</p>
+<textarea id="code" style="width:100%;height:200px;"># Écris ton code ici</textarea><br>
+<button onclick="evalCode()">Exécuter</button>
+<pre id="output"></pre>
+<script>
+function evalCode(){
+  try{
+    let code = document.getElementById('code').value;
+	    let result = eval(code);
+    document.getElementById('output').innerText = result===undefined?'OK':result;
+  }catch(e){
+    document.getElementById('output').innerText='Erreur: '+e;
+  }
+}
+</script>
+</body>
+</html>
